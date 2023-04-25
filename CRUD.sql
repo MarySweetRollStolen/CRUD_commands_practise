@@ -487,7 +487,7 @@ GO
 -- ----------------------------------------------------------------------------
 -- Процедура для зміни викладача предмету
 -- ----------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE SetTeacherName
+CREATE OR ALTER PROCEDURE SetTeacherId
     @teacher_id INT,
     @new_teacher_id INT,
     @subject_id INT
@@ -503,7 +503,7 @@ BEGIN
 END;
 GO
 -- Для перевірки можна зробити наступний виклик:
---EXECUTE SetTeacherName 2, 1, 4
+--EXECUTE SetTeacherId 2, 1, 4
 
 -- ----------------------------------------------------------------------------
 -- Процедура для видалення предмету викладача
@@ -514,6 +514,7 @@ CREATE OR ALTER PROCEDURE DeleteTeacherSubject
 AS
 BEGIN
     DELETE FROM TeacherSubjects WHERE teacher_id = @teacher_id AND subject_id = @subject_id;
+END;
 GO
 -- Для перевірки можна зробити наступний виклик:
 --EXEC DeleteTeacherSubject 1, 4
@@ -576,15 +577,16 @@ GO
 -- ----------------------------------------------------------------------------
 -- Процедура для видалення предмету у групи
 -- ----------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE DeleteTeacherSubject
+CREATE OR ALTER PROCEDURE DeleteGroupSubject
     @group_id INT,
     @subject_id INT
 AS
 BEGIN
     DELETE FROM GroupSubjects WHERE group_id = @group_id AND subject_id = @subject_id;
+END;
 GO
 -- Для перевірки можна зробити наступний виклик:
---EXEC DeleteTeacherSubject 1, 7
+--EXEC DeleteGroupSubject 1, 7
 
 -- ----------------------------------------------------------------------------
 -- Процедура для створення рядка даних нового екзамена
@@ -610,7 +612,7 @@ GO
 -- ---------------------------------------------------------------------------
 -- Процедура для отримання даних всіх екзаменів студента
 -- ----------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE GetGroupSubjects
+CREATE OR ALTER PROCEDURE GetStudentExams
     @student_id INT
 AS
 BEGIN
@@ -620,7 +622,7 @@ BEGIN
 END;
 GO
 -- Для перевірки можна зробити наступний виклик:
---EXEC GetGroupSubjects 1
+--EXEC GetStudentExams 1
 
 -- ----------------------------------------------------------------------------
 -- Процедура для зміни результату екзамену
@@ -651,6 +653,7 @@ CREATE OR ALTER PROCEDURE DeleteExam
 AS
 BEGIN
     DELETE FROM Exams WHERE exam_id = @exam_id;
+END;
 GO
 -- Для перевірки можна зробити наступний виклик:
 --EXEC DeleteExam 1
@@ -685,6 +688,7 @@ BEGIN
     SELECT *
     FROM Certificates
     WHERE student_id = @student_id;
+END;
 GO
 -- Для перевірки можна зробити наступний виклик:
 --EXEC GetStudentCertificates 1
@@ -713,44 +717,16 @@ GO
 -- ----------------------------------------------------------------------------
 -- Процедура для видалення сертифікату
 -- ----------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE DeleteExam
+CREATE OR ALTER PROCEDURE DeleteCertificate
     @student_id INT,
     @specialty_id INT
 AS
 BEGIN
     DELETE FROM Certificates WHERE student_id = @student_id AND specialty_id = @specialty_id;
+END;
 GO
 -- Для перевірки можна зробити наступний виклик:
---EXEC DeleteExam 1, 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--EXEC DeleteCertificate 1, 1
 
 -- ----------------------------------------------------------------------------
 -- EOF all.sq
